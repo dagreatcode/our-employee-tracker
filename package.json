@@ -1,0 +1,25 @@
+{
+  "name": "our-employee-tracker",
+  "version": "1.0.0",
+  "description": "Building a command-line application that at a minimum allows the user to:",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dagreatcode/our-employee-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dagreatcode/our-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/dagreatcode/our-employee-tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
