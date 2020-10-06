@@ -21,7 +21,18 @@ connection.connect(function (err) {
 //     manager_id INT,
 //     PRIMARY KEY (id)
 // );
-
+// CREATE TABLE role (
+//     id INT NOT NULL,
+//     title VARCHAR(100),
+//     salary INT,
+//     department_id INT,
+//     PRIMARY KEY (id)
+// );
+// CREATE TABLE department (
+//     id INT NOT NULL,
+//     name VARCHAR(100),
+//     PRIMARY KEY (id)
+// );
 // employee:
 
 // id - INT PRIMARY KEY
