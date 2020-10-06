@@ -13,7 +13,7 @@ connection.connect(function (err) {
     init();
 });
 
-// CREATE TABLE employees (
+// CREATE TABLE employee (
 //     id INT NOT NULL,
 //     first_name VARCHAR(100),
 //     last_name VARCHAR(100),
