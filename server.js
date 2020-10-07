@@ -31,13 +31,26 @@ function init() {
         {
             type: "input",
             name: "role",
-            messaage: "What is your name",
+            messaage: "What is your role",
             choice: [
                 "Test1",
                 "Test2"
             ]
         }
-    ]).then(function(answers){
-        console.log(answers);
-    })
-}
+    ])
+    .then(function(answer) {
+        switch (answer.input) {
+        case "Find employee by name":
+          employeeSearch();
+          break;
+  
+        case "employee by roll":
+          roleSearch();
+          break;
+  
+        case "Find department":
+          departmentSearch();
+          break;
+        }
+      });
+  }
