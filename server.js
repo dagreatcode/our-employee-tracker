@@ -14,4 +14,23 @@ connection.connect(function (err) {
     init();
 });
 
-function init() {}
+function init() {
+    inquirer.prompt(
+        {
+            name: "name",
+            type: "list",
+            message: "What is your first_name?"
+            choices: [
+                "Test1",
+                "Test2"
+            ]
+        },
+    ).then (res => {
+        if (res === true) {
+            console.log("Success!");
+          }
+          else {
+            console.log(err);
+          }
+    })
+}
