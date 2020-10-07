@@ -14,12 +14,4 @@ connection.connect(function (err) {
     init();
 });
 
-function init() {
-    connection.query("SELECT name FROM employees", function(err, res) {
-      if (err) throw err;
-  
-      // Log all results of the SELECT statement
-      console.log(res);
-      connection.table(data);
-    });
-  }
+function init() {}
