@@ -1,21 +1,27 @@
-CREATE TABLE employee (
+DROP DATABASE IF EXISTS employee_db;
+
+CREATE DATABASE employee_db;
+
+use employee_db;
+
+CREATE TABLE department (
     id INT NOT NULL,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    role_id INT,
-    manager_id INT,
+    name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
 CREATE TABLE role (
     id INT NOT NULL,
-    title VARCHAR(100),
+    title VARCHAR(100) NOT NULL,
     salary INT,
     department_id INT,
     PRIMARY KEY (id)
 );
-CREATE TABLE department (
+CREATE TABLE employee (
     id INT NOT NULL,
-    name VARCHAR(100),
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    role_id INT,
+    manager_id INT,
     PRIMARY KEY (id)
 );
 

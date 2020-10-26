@@ -36,39 +36,39 @@ function init() {
                 "Test1",
                 "Test2"
             ]
-        }
-    ])
-    .then(function(answer) {
-        switch (answer.input) {
-        case "Find employee by name":
-          employeeSearch();
-          break;
+        },
+//     ]).then(function(answer) {
+//         switch (answer.input) {
+//         case "Find employee by name":
+//           employeeSearch();
+//           break;
   
-        case "employee by roll":
-          roleSearch();
-          break;
+//         case "employee by roll":
+//           roleSearch();
+//           break;
   
-        case "Find department":
-          departmentSearch();
-          break;
-        }
-      });
-  }
+//         case "Find department":
+//           departmentSearch();
+//           break;
+//         }
+//       });
+//   }
 
-  function employeeSearch() {
-    inquirer
-      .prompt({
-        name: "artist",
-        type: "input",
-        message: "What artist would you like to search for?"
-      })
-      .then(function(answer) {
-        const query = "SELECT id, first_name, last_name, role_id, manager_id FROM employees";
-        connection.query(query, { name: answer.first_name }, function(err, res) {
-          for (var i = 0; i < res.length; i++) {
-            console.log("id: " + res[i].id + " || first_name: " + res[i].last_name + " || role_id: " + res[i].role_id + " || manager_id: " + res[i].manager_id);
-          }
-          init();
-        });
-      });
+//   function employeeSearch() {
+//     inquirer
+//       .prompt({
+//         name: "artist",
+//         type: "input",
+//         message: "What artist would you like to search for?"
+//       })
+//       .then(function(answer) {
+//         const query = "SELECT id, first_name, last_name, role_id, manager_id FROM employees";
+//         connection.query(query, { name: answer.first_name }, function(err, res) {
+//           for (var i = 0; i < res.length; i++) {
+//             console.log("id: " + res[i].id + " || first_name: " + res[i].last_name + " || role_id: " + res[i].role_id + " || manager_id: " + res[i].manager_id);
+//           }
+//           init();
+//         });
+//       });
+    ])
   }
