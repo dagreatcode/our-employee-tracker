@@ -61,26 +61,29 @@ function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
 function askUserForNewItemInfo() {
     inquirer.prompt([
         {
-          name: "first_name",
+          name: "userFirst",
           message: "first name?",
           type: "input",
         },
         {
-          name: "last_name",
+          name: "userLast",
           message: "last name?",
           type: "input",
         },
         {
-          name: "role_id",
+          name: "userSelection",
           message: "role?",
           type: "list",
-          choices: ["Employee", "Manager"],
+          choices: ["Manager", "Employee"],
         },
-      ]).then (({first_name, last_name, role_id}) => {
-          console.log(first_name);
-          console.log(last_name);
-          addNewItem(first_name, last_name, role_id);
-          getItems();
+      ]).then (({userSelection}) => {
+          console.log(userSelection);
+          if(userSelection === "Manager") {
+            // console.log(userFirst, userLast);
+            // addNewItem(first_name, last_name, role_id);
+            getItems();
+          }
+
       })
 }
 
