@@ -1,35 +1,60 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "password",
-    database: "employee_db",
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "password",
+  database: "employee_db",
 });
 
 connection.connect(function (err) {
-    if (err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
-    getItems();
-    addNewItem();
-    connection.end();
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId + "\n");
+  // getItems();
+  // addNewItem();
+  // connection.end();
+  inquirer
+    .prompt([
+      {
+        name: "userSelection",
+        type: "list",
+        message: "What is next?",
+        choices: ["ADD NEW ITEM", "VIEW ITEMS", "UPDATE ITEM", "EXIT"],
+      },
+    ])
+    .then(({ userSelection }) => {
+      console.log(userSelection);
+      if (userSelection === "VIEW ITEMS") {
+        getItems();
+      }
+    });
 });
 
 function getItems() {
-    connection.query("SELECT * FROM employee", (err, res)=> {
-        if (err) throw err;
-        console.table(res);
-    })
+  connection.query("SELECT * FROM employee", (err, res) => {
+    if (err) throw err;
+    console.table(res);
+  });
 }
 function addNewItem() {
-    connection.query("INSERT INTO employee SET ?", { employee_id: 4, first_name: "Rick", last_name: "Cage", role_id: 2, manager_id: 4}, (err, res)=> {
-        if (err) throw err;
-//         for(let i = 0; i < res.length; i++) {
-//             console.log(res[i].employee_id + "|" + res[i].first_name + "|" + res[i].last_name + "|" + res[i].role_id + "|" + res[i].manager_id)
-//         };
-//         console.log("--------------------------------------------------------");
-    }) 
+  connection.query(
+    "INSERT INTO employee SET ?",
+    {
+      employee_id: "",
+      first_name: "",
+      last_name: "",
+      role_id: "",
+      manager_id: "",
+    },
+    (err, res) => {
+      if (err) throw err;
+      //         for(let i = 0; i < res.length; i++) {
+      //             console.log(res[i].employee_id + "|" + res[i].first_name + "|" + res[i].last_name + "|" + res[i].role_id + "|" + res[i].manager_id)
+      //         };
+      //         console.log("--------------------------------------------------------");
+    }
+  );
 }
 
 // function queryRole(){
@@ -38,7 +63,6 @@ function addNewItem() {
 //         console.table();
 //     })
 // }
-
 
 // init2();
 
@@ -68,11 +92,11 @@ function addNewItem() {
 //         case "Find employee by name":
 //           employeeSearch();
 //           break;
-  
+
 //         case "employee by roll":
 //           roleSearch();
 //           break;
-  
+
 //         case "Find department":
 //           departmentSearch();
 //           break;
@@ -96,8 +120,8 @@ function addNewItem() {
 //           init();
 //         });
 //       });
-    // ])
+// ])
 
-    // console.log(query.sql);
-    // connection.end();
+// console.log(query.sql);
+// connection.end();
 //   }
