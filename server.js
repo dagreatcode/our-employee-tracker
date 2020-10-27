@@ -21,6 +21,15 @@ connection.connect(function (err) {
 //         connection.end();
 //     })
 // }
+function init() {
+    connection.query("SELECT * FROM employee", (err, res)=> {
+        if (err) throw err;
+        for(let i = 0; i < res.length; i++) {
+            console.log(res[i].employee_id + "|" + res[i].first_name + "|" + res[i].last_name + "|" + res[i].role_id + "|" + res[i].manager_id)
+        };
+        console.log("--------------------------------------------------------");
+    })
+}
 
 
 function init() {
