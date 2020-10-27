@@ -18,8 +18,8 @@ connection.connect(function (err) {
     .prompt([
       {
         name: "userSelection",
-        type: "list",
         message: "What is next?",
+        type: "list",
         choices: ["ADD NEW ITEM", "VIEW ITEMS", "UPDATE ITEM", "EXIT"],
       },
     ])
@@ -27,8 +27,8 @@ connection.connect(function (err) {
       console.log(userSelection);
       if (userSelection === "VIEW ITEMS") {
         getItems();
-      }else if (userSelection === "ADD NEW ITEM") {
-
+      } else if (userSelection === "ADD NEW ITEM") {
+        askUserForNewItemInfo();
       }
     });
 });
@@ -57,6 +57,31 @@ function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
       //         console.log("--------------------------------------------------------");
     }
   );
+}
+function askUserForNewItemInfo() {
+    inquirer.prompt([
+        {
+          name: "first_name",
+          message: "first name?",
+          type: "input",
+        },
+        {
+          name: "last_name",
+          message: "last name?",
+          type: "input",
+        },
+        {
+          name: "role_id",
+          message: "role?",
+          type: "list",
+          choices: ["Employee", "Manager"],
+        },
+      ]).then (({first_name, last_name, role_id}) => {
+          console.log(first_name);
+          console.log(last_name);
+          addNewItem(first_name, last_name, role_id);
+          getItems();
+      })
 }
 
 // function queryRole(){
