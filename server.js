@@ -11,17 +11,17 @@ const connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    init();
+    getItems();
+    connection.end();
 });
 
-// function init() {
-//     connection.query("SELECT * FROM employee", (err, res)=> {
-//         if (err) throw err;
-//         console.log(res);
-//         connection.end();
-//     })
-// }
-// function init2() {
+function getItems() {
+    connection.query("SELECT * FROM employee", (err, res)=> {
+        if (err) throw err;
+        console.table(res);
+    })
+}
+// function addNewItem() {
 //     connection.query("SELECT * FROM employee", (err, res)=> {
 //         if (err) throw err;
 //         for(let i = 0; i < res.length; i++) {
