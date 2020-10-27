@@ -21,38 +21,47 @@ connection.connect(function (err) {
 //         connection.end();
 //     })
 // }
-function init() {
-    connection.query("SELECT * FROM employee", (err, res)=> {
-        if (err) throw err;
-        for(let i = 0; i < res.length; i++) {
-            console.log(res[i].employee_id + "|" + res[i].first_name + "|" + res[i].last_name + "|" + res[i].role_id + "|" + res[i].manager_id)
-        };
-        console.log("--------------------------------------------------------");
-    })
-}
+// function init2() {
+//     connection.query("SELECT * FROM employee", (err, res)=> {
+//         if (err) throw err;
+//         for(let i = 0; i < res.length; i++) {
+//             console.log(res[i].employee_id + "|" + res[i].first_name + "|" + res[i].last_name + "|" + res[i].role_id + "|" + res[i].manager_id)
+//         };
+//         console.log("--------------------------------------------------------");
+//     }) 
+// }
+
+// function queryRole(){
+//     const query = connection.query("SELECT * FROM employee", (err, res) => {
+//         if (err) throw err;
+//         console.table();
+//     })
+// }
 
 
-function init() {
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "first_name",
-            messaage: "What is your name",
-        },
-        {
-            type: "input",
-            name: "last_name",
-            messaage: "What is your name",
-        },
-        {
-            type: "input",
-            name: "role",
-            messaage: "What is your role",
-            choice: [
-                "Test1",
-                "Test2"
-            ]
-        },
+// init2();
+
+// function init() {
+//     inquirer.prompt([
+//         {
+//             type: "input",
+//             name: "first_name",
+//             messaage: "What is your name",
+//         },
+//         {
+//             type: "input",
+//             name: "last_name",
+//             messaage: "What is your name",
+//         },
+//         {
+//             type: "input",
+//             name: "role",
+//             messaage: "What is your role",
+//             choice: [
+//                 "Test1",
+//                 "Test2"
+//             ]
+//         },
 //     ]).then(function(answer) {
 //         switch (answer.input) {
 //         case "Find employee by name":
@@ -86,5 +95,8 @@ function init() {
 //           init();
 //         });
 //       });
-    ])
-  }
+    // ])
+
+    // console.log(query.sql);
+    // connection.end();
+//   }
