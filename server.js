@@ -14,23 +14,7 @@ connection.connect(function (err) {
   // getItems();
   // addNewItem();
   // connection.end();
-  inquirer
-    .prompt([
-      {
-        name: "userSelection",
-        message: "What is next?",
-        type: "list",
-        choices: ["ADD NEW ITEM", "VIEW ITEMS", "UPDATE ITEM", "EXIT"],
-      },
-    ])
-    .then(({ userSelection }) => {
-      console.log(userSelection);
-      if (userSelection === "VIEW ITEMS") {
-        getItems();
-      } else if (userSelection === "ADD NEW ITEM") {
-        askUserForNewItemInfo();
-      }
-    });
+
 });
 
 function getItems() {
@@ -91,28 +75,50 @@ function askUserForNewItemInfo() {
       ]).then (({first_name, last_name, role_id, manager_id}) => {
           console.log(first_name, last_name, role_id, manager_id);
           addNewEmployee(first_name, last_name, role_id, manager_id);
-          if(userSelection === "Manager") {
-            // console.log(userFirst, userLast);
-            // addNewItem(first_name, last_name, role_id);
-            askUserForNewItemInfo();
-          }else if (userSelection === "Employee") {
-              inquirer.prompt([
-                  {
-                    name: "userSelection",
-                    message: "role?",
-                    type: "list",
-                    choices: ["OldEmployee", "NewEmployee"],
-                  },
-              ]).then (({userFirst, userLast}) => {
-                  console.log(userFirst);
-                  console.log(userLast);
-              })
-          }else if (userSelection === "Bye") {
-            getItems();
-          }
+          getItems();
+        //   if(userSelection === "Manager") {
+        //     // console.log(userFirst, userLast);
+        //     // addNewItem(first_name, last_name, role_id);
+        //     askUserForNewItemInfo();
+        //   }else if (userSelection === "Employee") {
+        //       inquirer.prompt([
+        //           {
+        //             name: "userSelection",
+        //             message: "role?",
+        //             type: "list",
+        //             choices: ["OldEmployee", "NewEmployee"],
+        //           },
+        //       ]).then (({userFirst, userLast}) => {
+        //           console.log(userFirst);
+        //           console.log(userLast);
+        //       })
+        //   }else if (userSelection === "Bye") {
+        //     getItems();
+        //   }
 
       })
 }
+
+function init() {
+    inquirer
+    .prompt([
+      {
+        name: "userSelection",
+        message: "What is next?",
+        type: "list",
+        choices: ["ADD NEW ITEM", "VIEW ITEMS", "UPDATE ITEM", "EXIT"],
+      },
+    ])
+    .then(({ userSelection }) => {
+      console.log(userSelection);
+      if (userSelection === "VIEW ITEMS") {
+        getItems();
+      } else if (userSelection === "ADD NEW ITEM") {
+        askUserForNewItemInfo();
+      }
+    });
+}
+
 function addNewEmployee(first_name, last_name, role_id, manager_id) {
     connection.query("INSERT INTO employee SET ? ", 
     {first_name: first_name, last_name: last_name, role_id: role_id, manager_id: manager_id}, 
@@ -121,6 +127,14 @@ function addNewEmployee(first_name, last_name, role_id, manager_id) {
         init();
     }); 
 }
+
+function viewDepartment() {
+    connection.query("SELECT * FROM department;", (error, data) => {
+      if (error) throw error;
+        console.table(data);
+          init();
+    })
+  }
 // function queryRole(){
 //     const query = connection.query("SELECT * FROM employee", (err, res) => {
 //         if (err) throw err;
