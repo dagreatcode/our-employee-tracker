@@ -15,6 +15,12 @@ VALUES (1, 'Management');
 INSERT INTO department (department_id, name) 
 VALUES (2, 'Employee');
 
+INSERT INTO department (department_id, name)
+VALUEs (3, 'OldEmployees');
+
+INSERT INTO department (department_id, name)
+VALUEs (4, 'NewEmployees');
+
 
 INSERT INTO role (role_id, title, salary, department_id) 
 values (3, 'Managment', 70000, 1);
