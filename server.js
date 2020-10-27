@@ -27,6 +27,8 @@ connection.connect(function (err) {
       console.log(userSelection);
       if (userSelection === "VIEW ITEMS") {
         getItems();
+      }else if (userSelection === "ADD NEW ITEM") {
+
       }
     });
 });
@@ -37,15 +39,15 @@ function getItems() {
     console.table(res);
   });
 }
-function addNewItem() {
+function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
   connection.query(
     "INSERT INTO employee SET ?",
     {
-      employee_id: "",
-      first_name: "",
-      last_name: "",
-      role_id: "",
-      manager_id: "",
+      employee_id: employee_id,
+      first_name: first_name,
+      last_name: last_name,
+      role_id: role_id,
+      manager_id: manager_id,
     },
     (err, res) => {
       if (err) throw err;
