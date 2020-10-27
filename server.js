@@ -61,32 +61,53 @@ function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
 function askUserForNewItemInfo() {
     inquirer.prompt([
         {
-          name: "userFirst",
+          name: "first_name",
           message: "first name?",
           type: "input",
         },
         {
-          name: "userLast",
+          name: "last_name",
           message: "last name?",
           type: "input",
         },
         {
-          name: "userSelection",
-          message: "role?",
+          name: "role_id",
+          message: "role id?",
           type: "list",
-          choices: ["Manager", "Employee"],
+          choices: [5, 6, 7, 8, 9],
         },
-      ]).then (({userSelection}) => {
-          console.log(userSelection);
+        {
+          name: "manager_id",
+          message: "manager id?",
+          type: "list",
+          choices: [5, 6, 7, 8, 9],
+        }
+      ]).then (({first_name, last_name, role_id, manager_id}) => {
+          console.log(first_name, last_name, role_id, manager_id);
+          addNewEmployee(first_name, last_name, role_id, manager_id);
           if(userSelection === "Manager") {
             // console.log(userFirst, userLast);
             // addNewItem(first_name, last_name, role_id);
             getItems();
+          }else if (userSelection === "Employee") {
+              inquirer.prompt([
+                  {
+                    name: "userSelection",
+                    message: "role?",
+                    type: "list",
+                    choices: ["Manager", "Employee"],
+                  },
+              ]).then (({userFirst, userLast}) => {
+                  console.log(userFirst);
+                  console.log(userLast);
+              })
           }
 
       })
 }
-
+function addNewEmployee(first_name, last_name, role_id, manager_id) {
+    
+}
 // function queryRole(){
 //     const query = connection.query("SELECT * FROM employee", (err, res) => {
 //         if (err) throw err;
