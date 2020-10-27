@@ -14,6 +14,13 @@ connection.connect(function (err) {
     init();
 });
 
+// function init() {
+//     connection.query("SELECT * FROM employee", (err, res)=> {
+//         if (err) throw err;
+//         console.log(res);
+//         connection.end();
+//     })
+// }
 
 
 function init() {
