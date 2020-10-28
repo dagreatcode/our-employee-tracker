@@ -24,11 +24,10 @@ function getItems() {
     init();
   });
 }
-function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
+function addNewItem(first_name, last_name, role_id, manager_id) {
   connection.query(
     "INSERT INTO employee SET ?",
     {
-      employee_id: employee_id,
       first_name: first_name,
       last_name: last_name,
       role_id: role_id,
@@ -46,11 +45,6 @@ function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
 function askUserForNewItemInfo() {
   inquirer
     .prompt([
-        {
-        name: "employee_id",
-        message: "employee id?",
-        type: "input",
-      },
       {
         name: "first_name",
         message: "first name?",
@@ -80,9 +74,9 @@ function askUserForNewItemInfo() {
         choices: ["Employee", "Manager", "EXIT"],
       },
     ])
-    .then(({ employee_id, first_name, last_name, role_id, manager_id }) => {
-      console.log(employee_id, first_name, last_name, role_id, manager_id);
-      addNewEmployee(employee_id, first_name, last_name, role_id, manager_id);
+    .then(({ first_name, last_name, role_id, manager_id }) => {
+    //   console.log(first_name, last_name, role_id, manager_id);
+      addNewEmployee(first_name, last_name, role_id, manager_id);
       getItems();
       init();
       //   if(userSelection === "Manager") {
@@ -131,11 +125,10 @@ function init() {
     });
 }
 
-function addNewEmployee(employee_id, first_name, last_name, role_id, manager_id) {
+function addNewEmployee( first_name, last_name, role_id, manager_id) {
   connection.query(
     "INSERT INTO employee SET ? ",
     {
-      employee_id: employee_id,
       first_name: first_name,
       last_name: last_name,
       role_id: role_id,
@@ -160,7 +153,7 @@ function updateEmployment() {
     connection.query("SELECT * FROM employee", (err, data) => {
         if (err) throw err;
         console.log(data);
-        const arrayOfItemNames = data.map(item => item.name);
+        const arrayOfItemNames = data.map(item => item.first_name);
         console.log(arrayOfItemNames);
         inquirer.prompt([
             {
@@ -172,10 +165,10 @@ function updateEmployment() {
         ]).then(({ itemToUpdate }) => {
             console.log(itemToUpdate);
             connection.query(
-                "UPDATE department SET ? WHERE ?",
+                "UPDATE employee.first_name SET ? WHERE ?",
                 [
                     {
-                        name: NewEmployees,
+                        first_name: ,
                     },
                     {
                         name: itemToUpdate,

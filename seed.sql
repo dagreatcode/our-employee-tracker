@@ -24,7 +24,7 @@ VALUEs ('NewEmployees');
 
 INSERT INTO role (title, salary, department_id) 
 values ('Managment', 70000, 1);
-INSERT INTO role (role_id, title, salary, department_id) 
+INSERT INTO role (title, salary, department_id) 
 values ('Employee', 50000, 2);
 
 UPDATE role
