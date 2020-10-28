@@ -14,13 +14,14 @@ connection.connect(function (err) {
   // getItems();
   // addNewItem();
   // connection.end();
-
+  init();
 });
 
 function getItems() {
   connection.query("SELECT * FROM employee", (err, res) => {
     if (err) throw err;
     console.table(res);
+    init();
   });
 }
 function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
@@ -43,64 +44,71 @@ function addNewItem(employee_id, first_name, last_name, role_id, manager_id) {
   );
 }
 function askUserForNewItemInfo() {
-    inquirer.prompt([
+  inquirer
+    .prompt([
         {
-          name: "first_name",
-          message: "first name?",
-          type: "input",
-        },
-        {
-          name: "last_name",
-          message: "last name?",
-          type: "input",
-        },
-        {
-          name: "role_id",
-          message: "role id?",
-          type: "list",
-          choices: [5, 6, 7, 8, 9],
-        },
-        {
-          name: "manager_id",
-          message: "manager id?",
-          type: "list",
-          choices: [5, 6, 7, 8, 9],
-        },
-        {
-          name: "userSelection",
-          message: "What do you want to do next?",
-          type: "list",
-          choices: ["Employee", "Manager", "Bye"],
-        }
-      ]).then (({first_name, last_name, role_id, manager_id}) => {
-          console.log(first_name, last_name, role_id, manager_id);
-          addNewEmployee(first_name, last_name, role_id, manager_id);
-          getItems();
-        //   if(userSelection === "Manager") {
-        //     // console.log(userFirst, userLast);
-        //     // addNewItem(first_name, last_name, role_id);
-        //     askUserForNewItemInfo();
-        //   }else if (userSelection === "Employee") {
-        //       inquirer.prompt([
-        //           {
-        //             name: "userSelection",
-        //             message: "role?",
-        //             type: "list",
-        //             choices: ["OldEmployee", "NewEmployee"],
-        //           },
-        //       ]).then (({userFirst, userLast}) => {
-        //           console.log(userFirst);
-        //           console.log(userLast);
-        //       })
-        //   }else if (userSelection === "Bye") {
-        //     getItems();
-        //   }
-
-      })
+        name: "employee_id",
+        message: "employee id?",
+        type: "input",
+      },
+      {
+        name: "first_name",
+        message: "first name?",
+        type: "input",
+      },
+      {
+        name: "last_name",
+        message: "last name?",
+        type: "input",
+      },
+      {
+        name: "role_id",
+        message: "role id?",
+        type: "list",
+        choices: [5, 6, 7, 8, 9],
+      },
+      {
+        name: "manager_id",
+        message: "manager id?",
+        type: "list",
+        choices: [5, 6, 7, 8, 9],
+      },
+      {
+        name: "userSelection",
+        message: "What do you want to do next?",
+        type: "list",
+        choices: ["Employee", "Manager", "EXIT"],
+      },
+    ])
+    .then(({ employee_id, first_name, last_name, role_id, manager_id }) => {
+      console.log(employee_id, first_name, last_name, role_id, manager_id);
+      addNewEmployee(employee_id, first_name, last_name, role_id, manager_id);
+      getItems();
+      init();
+      //   if(userSelection === "Manager") {
+      //     // console.log(userFirst, userLast);
+      //     // addNewItem(first_name, last_name, role_id);
+      //     askUserForNewItemInfo();
+      //   }else if (userSelection === "Employee") {
+      //       inquirer.prompt([
+      //           {
+      //             name: "userSelection",
+      //             message: "role?",
+      //             type: "list",
+      //             choices: ["OldEmployee", "NewEmployee"],
+      //           },
+      //       ]).then (({userFirst, userLast}) => {
+      //           console.log(userFirst);
+      //           console.log(userLast);
+      //       })
+      //   }else if (userSelection === "Bye") {
+      //     getItems();
+      //   }
+    });
 }
 
 function init() {
-    inquirer
+  inquirer
     .prompt([
       {
         name: "userSelection",
@@ -115,26 +123,77 @@ function init() {
         getItems();
       } else if (userSelection === "ADD NEW ITEM") {
         askUserForNewItemInfo();
+      }else if(userSelection === "EXIT"){
+          exit();
+      }else if (userSelection === "UPDATE ITEM") {
+          updateEmployment();
       }
     });
 }
 
-function addNewEmployee(first_name, last_name, role_id, manager_id) {
-    connection.query("INSERT INTO employee SET ? ", 
-    {first_name: first_name, last_name: last_name, role_id: role_id, manager_id: manager_id}, 
+function addNewEmployee(employee_id, first_name, last_name, role_id, manager_id) {
+  connection.query(
+    "INSERT INTO employee SET ? ",
+    {
+      employee_id: employee_id,
+      first_name: first_name,
+      last_name: last_name,
+      role_id: role_id,
+      manager_id: manager_id,
+    },
     (error, data) => {
-        if (error) throw error;
-        init();
-    }); 
+      if (error) throw error;
+      init();
+    }
+  );
 }
 
 function viewDepartment() {
-    connection.query("SELECT * FROM department;", (error, data) => {
-      if (error) throw error;
-        console.table(data);
-          init();
+  connection.query("SELECT * FROM department;", (error, data) => {
+    if (error) throw error;
+    console.table(data);
+    init();
+  });
+}
+
+function updateEmployment() {
+    connection.query("SELECT * FROM employee", (err, data) => {
+        if (err) throw err;
+        console.log(data);
+        const arrayOfItemNames = data.map(item => item.name);
+        console.log(arrayOfItemNames);
+        inquirer.prompt([
+            {
+                name: "itemToUpdate",
+                message: "What do you want to update?",
+                type: "list",
+                choices: arrayOfItemNames,
+            }
+        ]).then(({ itemToUpdate }) => {
+            console.log(itemToUpdate);
+            connection.query(
+                "UPDATE department SET ? WHERE ?",
+                [
+                    {
+                        name: NewEmployees,
+                    },
+                    {
+                        name: itemToUpdate,
+                    },
+                ],
+                (err, data) => {
+                    if (err) throw err;
+                    console.log(data);
+                    init;
+                }
+            )
+        })
     })
-  }
+}
+
+function exit() {
+    connection.end();
+}
 // function queryRole(){
 //     const query = connection.query("SELECT * FROM employee", (err, res) => {
 //         if (err) throw err;
