@@ -168,10 +168,10 @@ function updateEmployment() {
                 "UPDATE employee.first_name SET ? WHERE ?",
                 [
                     {
-                        first_name: ,
+                        first_name
                     },
                     {
-                        name: itemToUpdate,
+                        name: itemToUpdate
                     },
                 ],
                 (err, data) => {
